@@ -1,0 +1,24 @@
+<%= link_to 'New Exam', new_exam_url %>
+<div class="table-responsivenes">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Teacher Name</th>
+      <th>Exam Title</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @exams.each_with_index do |exam, index| %>
+        <% count = index + 1 %>
+        <tr>
+          <td><%= count%></td>
+          <td><%= exam.user.name %></td>
+          <td><%= exam.title %></td>
+          <td><%= link_to 'edit', edit_exam_path(exam) %> | <%= link_to 'delete', exam_path(exam), method: :delete%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

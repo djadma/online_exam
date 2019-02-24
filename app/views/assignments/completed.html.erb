@@ -1,0 +1,23 @@
+<div class="table-responsivenes">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Student Name</th>
+        <th>Exam Title</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @assignments.each_with_index do |assignment, index| %>
+        <% count = index + 1 %>
+        <tr>
+          <td><%= count%></td>
+          <td><%= assignment.user.name %></td>
+          <td><%= assignment.exam.title %></td>
+          <td><%= link_to 'view', assignment_path(assignment) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,6 @@
+<% @questions.each_with_index do |question, index| %>
+  <% count = index + 1 %>
+  <%= count %>:
+  <%= question.description %><br>
+  <b><%= @assignment.answers[index] %></b><br>
+<% end %>

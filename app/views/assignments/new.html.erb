@@ -1,0 +1,8 @@
+<%= form_for @assignment, :html => {class: 'form-horizontal'} do |f| %>
+  <h4>Assign task to students</h4>
+  <label>Select Exam</label>
+  <%= f.select :exam_id, options_for_select(@exams.map{|c| [c.title, c.id]}), {} %>
+  <Label>Select multiple students</Label>
+  <%= f.select :student_id, options_for_select(@students.map{|c| [c.name, c.id]}), {} %>
+  <%= f.submit 'save', class: "btn btn-primary" %>
+<% end %>

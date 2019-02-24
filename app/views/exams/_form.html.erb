@@ -1,0 +1,45 @@
+<%= nested_form_for @exam, :html => {class: 'form-horizontal'} do |f| %>
+  <% if @exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exam.errors.count, "error") %> prohibited this insurance_type from being saved:</h2>
+
+      <ul>
+      <% @exam.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4>Exam Test Paper</h4>
+  <%= f.text_field :title, placeholder: 'Test Title' %> 
+  <%= f.fields_for :questions do |question| %> 
+    <div class="field"> 
+      <%= question.label 'Question description' %><br> 
+      <%= question.text_field :description %>
+    </div>
+    <div class="field"> 
+      <%= question.label :question_type %></br>
+      <%= question.select :question_type, options_for_select(%w[Textable Options], question.object.question_type ), {}, onchange: "myFunction(#{question.index})", id: "select_#{question.index}" %>
+      <div id="question_<%= question.index%>" style="display: <%= question.object.question_type != "Options" ? 'none' : 'block' %>">
+        <input type="textbox" name="exam[questions_attributes][<%= question.index %>][options][]" placeholder="option1" value="<%= question.object.options[0]%>">
+        <input type="textbox" name="exam[questions_attributes][<%= question.index %>][options][]" placeholder="option2" value="<%= question.object.options[1]%>">
+        <input type="textbox" name="exam[questions_attributes][<%= question.index %>][options][]" placeholder="option3" value="<%= question.object.options[2]%>">
+        <input type="textbox" name="exam[questions_attributes][<%= question.index %>][options][]" placeholder="option4" value="<%= question.object.options[3]%>">
+      </div>
+    </div>
+  <% end %>
+  <p><%= f.link_to_add "Add a Question", :questions %></p> 
+  <%= f.submit 'save', class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+  function myFunction(id) {
+    var x = document.getElementById("select_"+id).value
+    if(x != "Options") {
+      $("#question_"+id).hide()
+    }else {
+      $("#question_"+id).show()
+    }
+  }
+</script>

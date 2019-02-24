@@ -1,0 +1,16 @@
+
+<%= form_tag assignment_path(@assignment),  :class => 'form-horizontal',:method => "patch" do %>
+  <label><%= @exam.title %></label></br>
+  <% @questions.each_with_index do |question, index| %>
+    <label><%= index + 1 %>: <%= question.description %></label></br>
+    <% if question.question_type == "Options"%>
+      <% question.objectives.each do |option|%>
+        <input type="radio" name="assignment[answers][]" value="<%= option %>"><%= option %><br>
+      <% end %>
+    <% else %>
+      <input type="textbox" name="assignment[answers][]">
+    <%  end %>
+   <!-- <input type="textbox" name="assignment[answers][name][]"> --></br>
+  <% end %>
+  <%= submit_tag 'save', class: "btn btn-primary" %>
+<% end %>
